@@ -16,7 +16,7 @@ async def predict_image(file: UploadFile = File(...)):
     return {"predictions :", predictions}
 
 
-@app.get("/healthcheck")
+@app.get("/healthcheck/")
 async def healthcheck():
     try:
         import os
