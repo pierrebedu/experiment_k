@@ -6,7 +6,7 @@ import os
 def capture_image(use_camera=True, image_path=None):
 
     if use_camera:
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture("/dev/video2")
         if not cap.isOpened():
             raise RuntimeError("Erreur: Caméra non détectée")
         
@@ -24,5 +24,5 @@ def capture_image(use_camera=True, image_path=None):
 
 if __name__ == "__main__":
     real_image = capture_image(use_camera=True)
-    cv2.imshow("Captured Image", real_image)
+    cv2.imwrite("real_image.jpg", real_image)
     
