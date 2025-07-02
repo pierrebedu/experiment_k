@@ -1,7 +1,7 @@
 # FastAPI entry point
  
 from fastapi import FastAPI, File, UploadFile
-from app.predict import predict  
+from predict import predict  
 
 app = FastAPI()
 
@@ -22,7 +22,9 @@ async def healthcheck():
         import os
         import random
         import glob
-        data_folder = "/data"
+        data_folder = "/home/pbedu/experiment_k/data/train/images"
+        if not os.path.exists(data_folder):
+            return {"status": "error", "message": "Data folder does not exist."}
         jpg_files = glob.glob(os.path.join(data_folder, "*.jpg"))
         if not jpg_files:
             return {"status": "error", "message": "No JPG files found in /data folder."}
