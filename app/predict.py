@@ -24,11 +24,16 @@ def visualize(image_path):
     cv2.imwrite("visualize_result.jpg", im)
 
 
+def infere_vid(video_path):
+    model= load_model()
+    model.predict(source=video_path, imgsz=224,conf=0.4, save=True)
+
 def predict_stream(image_stream):
     pass
 
 if __name__ == "__main__":
-    path="/home/pbedu/experiment_k/data/train/images/image-0001_png.rf.48960681266b71a9f81c8dfcb2a3e1bc.jpg"
+    path="test_image.jpg"
     pred= predict_fct(path)
     print(pred[0].boxes.xywh)
     visualize(path)
+
