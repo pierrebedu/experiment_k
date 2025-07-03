@@ -1,19 +1,29 @@
 # FastAPI entry point
  
 from fastapi import FastAPI, File, UploadFile
-from predict import predict  
+from predict import predict_fct
 
 app = FastAPI()
 
 @app.post("/predict/")
 async def predict_image(file: UploadFile = File(...)):
-    image_path = f"/tmp/{file.filename}"
-    with open(image_path, "wb") as f:
-        f.write(await file.read())
+    try :
+        image_path = f"{file.filename}"
+        pred = predict_fct(image_path)
+        predictions_list = []
+        for box in pred[0].boxes.xywh:
+            predictions_list.append({
+                "x_center": box[0].item(),
+                "y_center": box[1].item(),
+                "width": box[2].item(),
+                "height": box[3].item(),
+            })
+
+        return {"predictions ": predictions_list}
     
-    predictions = predict(image_path)
-    
-    return {"predictions :", predictions}
+    except Exception as e:
+        print("Erreur dans /predict/:", e)
+        return {"error": str(e)}
 
 
 @app.get("/healthcheck/")
@@ -29,7 +39,7 @@ async def healthcheck():
         if not jpg_files:
             return {"status": "error", "message": "No JPG files found in /data folder."}
         random_image = random.choice(jpg_files)
-        predict(random_image)
+        predict_fct(random_image)
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
