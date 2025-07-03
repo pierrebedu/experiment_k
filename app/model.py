@@ -15,7 +15,6 @@ def load_model():
     model = YOLO("../weights/last.pt")
     return model
 
-
 if __name__ == "__main__":
     train_model()
     print("Model trained successfully.")

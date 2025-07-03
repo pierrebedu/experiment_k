@@ -1,6 +1,6 @@
 # FastAPI entry point
- 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, UploadFile, File, Form
+from typing import Optional
 from predict import predict_fct
 from camera import capture_image
 import cv2
@@ -8,9 +8,20 @@ import cv2
 app = FastAPI()
 
 @app.post("/predict/")
-async def predict_image(file: UploadFile = File(...)):
-    try :
-        image_path = f"{file.filename}"
+async def predict_image(
+    use_camera: bool = Form(False),
+    file: Optional[UploadFile] = File(None)
+):
+    try:
+        if use_camera:
+            frame = capture_image()
+            image_path = "realtime_image.jpg"
+            cv2.imwrite(image_path, frame)
+        else:
+            if file is None:
+                return {"error": "No file uploaded and use_camera is False"}
+            image_path = file.filename
+       
         pred = predict_fct(image_path)
         predictions_list = []
         for box in pred[0].boxes.xywh:
@@ -21,8 +32,8 @@ async def predict_image(file: UploadFile = File(...)):
                 "height": box[3].item(),
             })
 
-        return {"predictions ": predictions_list}
-    
+        return {"predictions": predictions_list}
+
     except Exception as e:
         print("Erreur dans /predict/:", e)
         return {"error": str(e)}
@@ -48,24 +59,3 @@ async def healthcheck():
     return {"status": "ok"}
 
 
-@app.get("/predict_realtime/")
-async def predict_realtime():
-    try :
-        frame=capture_image()  # Assuming this function captures an image and saves it to a predefined path
-        #save frame on disk
-        cv2.imwrite("realtime_image.jpg", frame)
-        pred = predict_fct("realtime_image.jpg")
-        predictions_list = []
-        for box in pred[0].boxes.xywh:
-            predictions_list.append({
-                "x_center": box[0].item(),
-                "y_center": box[1].item(),
-                "width": box[2].item(),
-                "height": box[3].item(),
-            })
-
-        return {"predictions ": predictions_list}
-    
-    except Exception as e:
-        print("Erreur dans /predict/:", e)
-        return {"error": str(e)}
