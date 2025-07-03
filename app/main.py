@@ -34,7 +34,7 @@ async def healthcheck():
         import os
         import random
         import glob
-        data_folder = "/home/pbedu/experiment_k/data/train/images"
+        data_folder = "/home/pierre/experiment_k/data/train/images/"
         if not os.path.exists(data_folder):
             return {"status": "error", "message": "Data folder does not exist."}
         jpg_files = glob.glob(os.path.join(data_folder, "*.jpg"))
@@ -48,7 +48,7 @@ async def healthcheck():
     return {"status": "ok"}
 
 
-@app.post("/predict_realtime/")
+@app.get("/predict_realtime/")
 async def predict_realtime():
     try :
         frame=capture_image()  # Assuming this function captures an image and saves it to a predefined path
