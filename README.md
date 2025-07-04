@@ -1,5 +1,5 @@
-# experiment_k
-personnal camera tests
+## Computer vision with camera and apis
+
 
 # Constraints /choices:
 - wanted to segment things like a pen or a pipette bur data annotation would have taken too much time
