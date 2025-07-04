@@ -10,15 +10,6 @@ from starlette.background import BackgroundTask
 
 app = FastAPI()
 
-logging.basicConfig(filename="info.log", level=logging.INFO)
-
-def log_info(method, url_path, req_body, res_body):
-    logging.info(f"API called: {method} {url_path}")
-    logging.info(f"Request body: {req_body}")
-    logging.info(f"Response body: {res_body}")
-
-
-
 @app.post("/predict/")
 async def predict_image(
     use_camera: bool = Form(False),
@@ -69,6 +60,15 @@ async def healthcheck():
         return {"status": "error", "message": str(e)}
 
     return {"status": "ok"}
+
+
+logging.basicConfig(filename="info.log", level=logging.INFO)
+
+def log_info(method, url_path, req_body, res_body):
+    logging.info(f"API called: {method} {url_path}")
+    logging.info(f"Request body: {req_body}")
+    logging.info(f"Response body: {res_body}")
+
 
 @app.middleware("http")
 async def log_request_response(request: Request, call_next):
