@@ -1,11 +1,23 @@
 # FastAPI entry point
-from fastapi import FastAPI, UploadFile, File, Form
+
+from fastapi import FastAPI, UploadFile, File, Form, Request, Response
 from typing import Optional
 from predict import predict_fct
 from camera import capture_image
 import cv2
+import logging
+from starlette.background import BackgroundTask
 
 app = FastAPI()
+
+logging.basicConfig(filename="info.log", level=logging.INFO)
+
+def log_info(method, url_path, req_body, res_body):
+    logging.info(f"API called: {method} {url_path}")
+    logging.info(f"Request body: {req_body}")
+    logging.info(f"Response body: {res_body}")
+
+
 
 @app.post("/predict/")
 async def predict_image(
@@ -58,4 +70,29 @@ async def healthcheck():
 
     return {"status": "ok"}
 
+@app.middleware("http")
+async def log_request_response(request: Request, call_next):
+    req_body = await request.body()
+    response = await call_next(request)
 
+    # Read response body (works for JSON/text responses)
+    chunks = []
+    async for chunk in response.body_iterator:
+        chunks.append(chunk)
+    res_body = b"".join(chunks)
+
+    # Log method and path along with bodies
+    task = BackgroundTask(
+        log_info,
+        request.method,
+        request.url.path,
+        req_body,
+        res_body
+    )
+    return Response(
+        content=res_body,
+        status_code=response.status_code,
+        headers=dict(response.headers),
+        media_type=response.media_type,
+        background=task
+    )
