@@ -17,8 +17,10 @@ personnal camera tests
 
 
 # Example API call
-- call with an image : curl 'http://127.0.0.1:8000/predict/' -F 'file=@/home/pierre/experiment_k/app/test_image.jpg'
-- image caught on demand : curl -F "use_camera=true" http://127.0.0.1:8000/predict/
+- call with an image : \
+curl 'http://127.0.0.1:8000/predict/' -F 'file=@/home/pierre/experiment_k/app/test_image.jpg'
+- image caught on demand : \
+curl -F "use_camera=true" http://127.0.0.1:8000/predict/
 
 
 
