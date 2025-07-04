@@ -3,3 +3,4 @@ data/
 weights/
 *.pt
 *.pyc
+info.log

@@ -2,7 +2,7 @@
 
 
 # Constraints /choices:
-- wanted to segment things like a pen or a pipette bur data annotation would have taken too much time
+- choice of an app that could answer to your need : wanted to segment things like a pen or a pipette bur data annotation would have taken too much time
 - object detection paradigm was doable
 - can be run in real time on cpu
 - CNN are SOTA for most computer vision tasks
@@ -30,18 +30,19 @@
 # Additional features :
 - one unit test to demonstrate
 - retrain with "python retrain.py"
+- logging of APIs
 
 
 
 
 
 TO DO :
-- robustify
+- robustify (camera fails. image does not exist.)
 - systematic unit tests
 - docker
-- logs requests and responses
+
 
 
 prioritize:
 docker
-logging calls
+realtime prediction
