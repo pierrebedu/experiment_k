@@ -37,19 +37,19 @@
 
 
 # code structure
-experiment_k/
-│
-├── app/
-│   ├── main.py          # FastAPI entry point
-│   ├── camera.py        # Simulated camera module
-│   ├── model.py         # Model training and loading
-│   ├── predict.py       # Prediction logic
-│   └── utils.py         # useless here
-│
-├── data/                # Dataset (optional if downloaded)
-├── requirements.txt
-└── README.md
-
+experiment_k/ \
+│ \
+├── app/ \
+│   ├── main.py          # FastAPI entry point \
+│   ├── camera.py        # Simulated camera module \
+│   ├── model.py         # Model training and loading \
+│   ├── predict.py       # Prediction logic \
+│   └── utils.py         # useless here \
+│ \
+├── data/                # Dataset (optional if downloaded) \
+├── requirements.txt \
+└── README.md \
+\ 
 See requirements for python installation. Any Python >3.6 should be fine.
 
 # Additional features :
