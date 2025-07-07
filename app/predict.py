@@ -29,12 +29,15 @@ def infere_vid(video_path):
     model= load_model()
     model.predict(source=video_path, imgsz=224,conf=0.4, save=True)
 
-def predict_stream(image_stream):
-    pass
+def predict_stream():
+    from ultralytics import YOLO
+    model = YOLO("weights/last.pt")
+    model.predict(source=0, device="cpu", show=True, conf=0.7, imgsz=224, iou=0.5)
 
 if __name__ == "__main__":
-    path="test_image.jpg"
-    pred= predict_fct(path)
-    print(pred[0].boxes.xywh)
-    visualize(path)
+    #path="test_image.jpg"
+    #pred= predict_fct(path)
+    #print(pred[0].boxes.xywh)
+    #visualize(path)
 
+    predict_stream()

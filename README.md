@@ -23,7 +23,7 @@
 - call with a test image : \
 `curl 'http://127.0.0.1:8000/predict/' -F 'file=@/home/pierre/experiment_k/app/test_image.jpg'`
 - image caught on demand by camera : \
-`curl  http://127.0.0.1:8000/predict/` -F "use_camera=true"
+`curl  http://127.0.0.1:8000/predict/ -F "use_camera=true" `
 
 
 # docker
