@@ -1,9 +1,6 @@
 # Prediction logic
-from camera import capture_image
 import cv2
 from model import load_model
-
-
 
 def predict_fct(image_path):
     model= load_model()
@@ -18,7 +15,7 @@ def visualize(image_path):
     for box in boxes:
         x1, y1, x2, y2 = map(int, box.xyxy[0])
         label = int(box.cls[0].item())
-        label = "pen" if label == 2 else "kit" #use yaml dictionary to map labels
+        label = "pen" if label == 2 else "kit" 
         color = (0, 0, 255) if label == "kit" else (0, 255, 0)  
         cv2.rectangle(im, (x1, y1), (x2, y2), color, 2)
         cv2.putText(im, str(label), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)

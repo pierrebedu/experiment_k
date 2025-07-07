@@ -9,9 +9,7 @@ def train_model():
 
 
 def load_model():
-
     import glob
-
     matches = glob.glob('**/weights/last.pt', recursive=True)
     if not matches:
         raise FileNotFoundError("Weight file not found. Please train the model first.")

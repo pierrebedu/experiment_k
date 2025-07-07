@@ -10,17 +10,19 @@ def capture_image(use_camera=True, image_path=None):
         if not cap.isOpened():
             raise RuntimeError("Erreur: Caméra non détectée")
         
-        ret, frame = cap.read()
-        cap.release()
-        
-        if not ret:
-            raise RuntimeError("Échec de la capture")
-        return frame
+        else :
+            ret, frame = cap.read()
+            cap.release()
+            if not ret:
+                raise RuntimeError("Échec de la capture")
+            else :
+                return frame
         
     else:
         if not image_path or not os.path.exists(image_path):
             raise FileNotFoundError("Fichier image introuvable")
-        return cv2.imread(image_path)
+        else :
+            return cv2.imread(image_path)
 
 if __name__ == "__main__":
     real_image = capture_image(use_camera=True)
