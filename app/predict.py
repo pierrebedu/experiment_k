@@ -4,6 +4,7 @@ import cv2
 from model import load_model
 
 
+
 def predict_fct(image_path):
     model= load_model()
     predictions = model.predict(source=image_path, imgsz=224,conf=0.4)
@@ -22,7 +23,7 @@ def visualize(image_path):
         cv2.rectangle(im, (x1, y1), (x2, y2), color, 2)
         cv2.putText(im, str(label), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
     cv2.imwrite("visualize_result.jpg", im)
-
+    
 
 def infere_vid(video_path):
     model= load_model()

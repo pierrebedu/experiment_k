@@ -3,6 +3,9 @@ FROM python:3.10.0-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+ENV PYTHONPATH=/app:/workdir/app:/workdir
+
+
 RUN apt-get update && apt-get install -y libgl1-mesa-glx \
     gcc \
     libglib2.0-0 \

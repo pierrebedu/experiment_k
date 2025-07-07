@@ -18,12 +18,14 @@ async def predict_image(
     try:
         if use_camera:
             frame = capture_image()
+            cv2.imwrite("realtime_image.jpg", frame)
             image_path = "realtime_image.jpg"
-            cv2.imwrite(image_path, frame)
         else:
             if file is None:
                 return {"error": "No file uploaded and use_camera is False"}
-            image_path = file.filename
+            image_path = f"/tmp/{file.filename}"
+            with open(image_path, "wb") as f:
+                f.write(await file.read())
        
         pred = predict_fct(image_path)
         predictions_list = []
