@@ -2,8 +2,7 @@
 
 
 # Constraints /choices:
-- choice of a use case close to your problematics : wanted to segment things like a pen or a pipette, but data annotation would have taken too long
-- object detection paradigm was doable within a week
+- object detection is fast to train and data annotation is doable quickly
 - can be run in real time on cpu
 - CNNs are SOTA for most computer vision tasks
 
